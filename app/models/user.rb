@@ -37,6 +37,9 @@ class User
   field :access_token, :type => String
   field :username, :type => String
 
+  # Associations
+  has_many :items
+
   after_create :update_access_token!
 
   private

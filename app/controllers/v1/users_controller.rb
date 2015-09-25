@@ -7,12 +7,6 @@ module V1
     def create
       @user = User.new user_params
 
-      puts "*******"
-        p params
-        p @user
-      puts "*******"
-
-
       if @user.save
         render json: @user, serializer: V1::SessionSerializer, root: nil
       else
