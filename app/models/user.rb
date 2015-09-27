@@ -37,10 +37,24 @@ class User
   field :access_token, :type => String
   field :username, :type => String
 
+  # Flags
+  field :is_host, :type => Boolean
+  field :is_guest, :type => Boolean
+
+  field :host_code, :type => String
+  validates_presence_of :is_host
+
   # Associations
   has_many :items
 
-  after_create :update_access_token!
+  # Self reference association for Guest/Host
+  has_one :host, :class_name => 'User`', :inverse_of => :guest
+  belongs_to :guest, :class_name => 'User', :inverse_of => :host
+
+  has_one :guest, :class_name => 'User`', :inverse_of => :host
+  belongs_to :host, :class_name => 'User', :inverse_of => :guest
+
+  after_create :update_access_token!, :generate_host_code
 
   private
 
@@ -53,6 +67,13 @@ class User
     loop do
       token = "#{self.id}:#{Devise.friendly_token}"
       break token unless User.where(access_token: token).first
+    end
+  end
+
+  def generate_host_code
+    if self.is_host
+      self.host_code = (('a'...'z').to_a.sample(4) + (0..9).to_a.sample(3)).shuffle.join
+      save
     end
   end
 
