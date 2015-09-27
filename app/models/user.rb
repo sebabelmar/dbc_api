@@ -39,19 +39,18 @@ class User
 
   # Flags
   field :is_host, :type => Boolean
-  field :is_guest, :type => Boolean
+  validates_presence_of :is_host
 
   field :host_code, :type => String
-  validates_presence_of :is_host
 
   # Associations
   has_many :items
 
   # Self reference association for Guest/Host
-  has_one :host, :class_name => 'User`', :inverse_of => :guest
+  has_one :host, :class_name => 'User', :inverse_of => :guest
   belongs_to :guest, :class_name => 'User', :inverse_of => :host
 
-  has_one :guest, :class_name => 'User`', :inverse_of => :host
+  has_one :guest, :class_name => 'User', :inverse_of => :host
   belongs_to :host, :class_name => 'User', :inverse_of => :guest
 
   after_create :update_access_token!, :generate_host_code

@@ -4,7 +4,18 @@ class V1::UsersController < ApplicationController
   # POST /v1/users
   # Creates an user
   def create
-    @user = User.new user_params
+
+p user_params
+puts "*"*50
+    if user_params['is_host']
+      @user = User.new user_params
+    else
+      @user = User.new user_params
+      host = User.find_by(host_code: user_params['host_code']
+      @user.host = host.id
+      host.guest = @user.id
+      host.save
+    end
 
     if @user.save
       render json: @user, serializer: V1::SessionSerializer, root: nil
@@ -16,6 +27,6 @@ class V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :username, :is_host, :password, :password_confirmation)
+    params.require(:user).permit(:email, :username, :is_host, :host_code,:password, :password_confirmation)
   end
 end
