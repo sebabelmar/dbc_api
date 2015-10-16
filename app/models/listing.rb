@@ -1,6 +1,5 @@
 class Listing
   include Mongoid::Document
-  include Mongoid::Enum
 
     belongs_to :user
 
@@ -9,6 +8,6 @@ class Listing
     field :price, :type => Integer
     field :location, :type => String
     field :experation_date, :type => Integer
-    enum :status, [:active, :pending, :closed], :default => :active
+    field :status, type => String, :default => "active"
 
 end
