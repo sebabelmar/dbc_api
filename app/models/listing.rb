@@ -8,6 +8,6 @@ class Listing
     field :price, :type => Integer
     field :location, :type => String
     field :experation_date, :type => Integer
-    field :status, type => String, :default => "active"
+    field :status, :type => String, :default => "active"
 
 end
