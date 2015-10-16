@@ -8,7 +8,7 @@ class Listing
     field :description, :type => String
     field :price, :type => Integer
     field :location, :type => String
-    field :experation_date, => Integer
+    field :experation_date, :type => Integer
     enum :status, [:active, :pending, :closed], :default => :active
 
 end
