@@ -37,7 +37,7 @@ gem 'active_model_serializers', '~> 0.8.3'
 gem 'rack-cors', :require => 'rack/cors'
 
 # Enums
-gem 'mongoid-enum-i18n', git: 'git@github.com:nofxx/mongoid-enum.git'
+gem 'mongoid-enum-i18n'
 
 # Heroku
 gem 'rails_12factor', group: :production
