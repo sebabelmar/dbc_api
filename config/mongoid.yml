@@ -144,6 +144,4 @@ production:
      uri: <%= ENV['MONGOLAB_URI'] %>
 
      options:
-        read:
-          mode: primary
-        max_pool_size: 1
+        raise_not_found_error: false
